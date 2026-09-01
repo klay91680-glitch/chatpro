@@ -1472,7 +1472,7 @@
         if (id === 'groupSearch') renderAllGroups();
         if (id === 'myGroups') renderMyGroups();
         if (id === 'profile') renderProfileCreateGroup();
-        if (id === 'userProfile') renderUserProfile();
+        if (id === 'userProfile') renderUserProfile(window.viewingProfile || me);
         if (id === 'myAccount') renderMyAccount();
         if (id === 'inbox') renderInbox();
         updateSystemMessage(systemMessage, systemMessageTime);
@@ -1662,6 +1662,7 @@
 
     // ===== USER PROFILE =====
     function viewUserProfile(id) {
+        window.viewingProfile = id;
         var u = db.users[id];
         if (!u) return;
         if (isBlocked(id) && id !== me) {
@@ -2055,7 +2056,7 @@
         if (id === 'groupSearch') renderAllGroups();
         if (id === 'myGroups') renderMyGroups();
         if (id === 'profile') { renderProfileCreateGroup(); renderSticker(); }
-        if (id === 'userProfile') renderUserProfile(window.viewingProfile);
+        if (id === 'userProfile') renderUserProfile(window.viewingProfile || me);
         if (id === 'onboarding') updateSystemMessage(systemMessage, systemMessageTime);
     }
 
@@ -3303,13 +3304,14 @@ function requestJoinGroup(groupId) {
         }
         window.currentGroup = groupId;
         show('groupDetail');
-        renderGroupDetail();
+        setTimeout(function(){ renderGroupDetail(); }, 0);
         renderMyGroups();
     }
 
     function renderGroupDetail() {
         var box = document.getElementById('groupDetailBox');
         if (!box) return;
+        try {
         var g = db.groups.find(function(x) { return x.id === window.currentGroup; });
         if (!g) { box.innerHTML = '<div class="small">အသင်းမရှိပါ</div>'; return; }
         g.members = Array.isArray(g.members) ? g.members : [];
@@ -3370,6 +3372,10 @@ function requestJoinGroup(groupId) {
 
         html += '<hr><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">' + (isMember ? '<button class="btn" onclick="openGroupChat(\''+g.id+'\')">💬 Chat</button>' : '') + '</div>';
         box.innerHTML = html;
+        } catch (e) {
+            console.error(e);
+            box.innerHTML = '<div class="small">အသင်းဖွင့်ရာတွင် အမှားဖြစ်နေပါသည်။</div>';
+        }
     }
 
     function showGroupSettings() {
@@ -3486,7 +3492,7 @@ function requestJoinGroup(groupId) {
         var oldBack = document.querySelector('.group-detail-back-old');
         if (oldBack) oldBack.style.display = '';
         show('groupDetail');
-        renderGroupDetail();
+        setTimeout(function(){ renderGroupDetail(); }, 0);
     }
 
     var contextReportTarget = null;
