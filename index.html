@@ -638,7 +638,7 @@
             <!-- Profile photo area starts clean; decoration controls are placed below the stats. -->
             <div class="profile-gallery-wrap">
                 <div id="photos" class="profile-photos"></div>
-                <div class="profile-photo-note">* ပုံကိုနှိပ်ပြီး ပြောင်းနိုင်သည်။ ပုံ ၄ ပုံအထိ တင်နိုင်သည်။</div>
+                <div class="profile-photo-note">* ပုံကိုနှိပ်ပြီး ပြောင်းနိုင်သည်။ ပုံ ၃၂ ပုံအထိ တင်နိုင်သည်။</div>
             </div>
             <div class="profile-stats">
                 <div onclick="showFollowList('following')" style="cursor:pointer" title="Following စာရင်းကြည့်ရန်"><b id="followingCount">0</b><span>Following</span></div>
@@ -1472,7 +1472,7 @@
         if (id === 'groupSearch') renderAllGroups();
         if (id === 'myGroups') renderMyGroups();
         if (id === 'profile') renderProfileCreateGroup();
-        if (id === 'userProfile') renderUserProfile();
+        if (id === 'userProfile') renderUserProfile(window.viewingProfile);
         if (id === 'myAccount') renderMyAccount();
         if (id === 'inbox') renderInbox();
         updateSystemMessage(systemMessage, systemMessageTime);
