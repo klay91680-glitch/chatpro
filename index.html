@@ -638,7 +638,7 @@
             <!-- Profile photo area starts clean; decoration controls are placed below the stats. -->
             <div class="profile-gallery-wrap">
                 <div id="photos" class="profile-photos"></div>
-                <div class="profile-photo-note">* ပုံကိုနှိပ်ပြီး ပြောင်းနိုင်သည်။ ပုံ ၃၂ ပုံအထိ တင်နိုင်သည်။</div>
+                <div class="profile-photo-note">* ပုံကိုနှိပ်ပြီး ပြောင်းနိုင်သည်။ ပုံ ၄ ပုံအထိ တင်နိုင်သည်။</div>
             </div>
             <div class="profile-stats">
                 <div onclick="showFollowList('following')" style="cursor:pointer" title="Following စာရင်းကြည့်ရန်"><b id="followingCount">0</b><span>Following</span></div>
@@ -1472,7 +1472,7 @@
         if (id === 'groupSearch') renderAllGroups();
         if (id === 'myGroups') renderMyGroups();
         if (id === 'profile') renderProfileCreateGroup();
-        if (id === 'userProfile') renderUserProfile(window.viewingProfile);
+        if (id === 'userProfile') renderUserProfile();
         if (id === 'myAccount') renderMyAccount();
         if (id === 'inbox') renderInbox();
         updateSystemMessage(systemMessage, systemMessageTime);
@@ -3633,5 +3633,34 @@
         <div class="dob-picker-footer"><button class="dob-today" type="button" onclick="dobPickerToday()">ယနေ့</button><button class="dob-cancel" type="button" onclick="closeDobPicker()">ပိတ်မည်</button></div>
     </div>
 </div>
+
+<script>
+/* Bee Chat blank page protection fix */
+(function(){
+  function safeCall(fn){
+    try { return fn(); } catch(e) {
+      console.error('BeeChat fix:', e);
+      var box = document.getElementById('groupDetailBox') || document.getElementById('userProfileBox');
+      if(box) box.innerHTML = '<div class="small">စာမျက်နှာဖွင့်ရာတွင် အမှားဖြစ်နေပါသည်။ ပြန်ကြိုးစားပါ။</div>';
+    }
+  }
+  window.addEventListener('error', function(e){
+    console.error('BeeChat JS error:', e.error || e.message);
+  });
+  var oldView = window.viewUserProfile;
+  if(oldView){
+    window.viewUserProfile = function(id){
+      return safeCall(function(){ return oldView(id); });
+    };
+  }
+  var oldOpen = window.openGroup;
+  if(oldOpen){
+    window.openGroup = function(id){
+      return safeCall(function(){ return oldOpen(id); });
+    };
+  }
+})();
+</script>
+
 </body>
     </html>
