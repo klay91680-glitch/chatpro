@@ -638,7 +638,7 @@
             <!-- Profile photo area starts clean; decoration controls are placed below the stats. -->
             <div class="profile-gallery-wrap">
                 <div id="photos" class="profile-photos"></div>
-                <div class="profile-photo-note">* ပုံကိုနှိပ်ပြီး ပြောင်းနိုင်သည်။ ပုံ ၄ ပုံအထိ တင်နိုင်သည်။</div>
+                <div class="profile-photo-note">* ပုံကိုနှိပ်ပြီး ပြောင်းနိုင်သည်။ ပုံ ၃၂ ပုံအထိ တင်နိုင်သည်။</div>
             </div>
             <div class="profile-stats">
                 <div onclick="showFollowList('following')" style="cursor:pointer" title="Following စာရင်းကြည့်ရန်"><b id="followingCount">0</b><span>Following</span></div>
@@ -653,7 +653,7 @@
             <div class="profile-form">
                 <div class="profile-region-row">
                     <label>📍 Region</label>
-                    <div id="profileRegionDisplay" class="profile-region-value">-</div>
+                    <input id="profileRegionInput" class="profile-region-value" type="text" placeholder="Japan">
                 </div>
                 <div class="profile-row"><label>အမည်</label><input id="profileName" type="text" placeholder="သင့်အမည်"></div>
                 <div class="profile-row"><label>Account ဖွင့်အမည်</label><div id="accountNameView" class="profile-value">-</div></div>
@@ -970,9 +970,9 @@
 
     var DEFAULT = {
         users: {
-            U10001: { id: 'U10001', name: 'မောင်မောင်', bio: '', photos: [], photoLimit: 32, lat: null, lng: null, password: '123456', region: '', adminPhotos: [], deviceHistory: [], gender: 'Male', dob: '1990-01-01', sticker: '😊' },
-            U10002: { id: 'U10002', name: 'လှလှ', bio: '', photos: [], photoLimit: 32, lat: null, lng: null, password: '123456', region: '', adminPhotos: [], deviceHistory: [], gender: 'Female', dob: '1995-05-15', sticker: '❤️' },
-            U10003: { id: 'U10003', name: 'Aung', bio: '', photos: [], photoLimit: 32, lat: null, lng: null, password: '123456', region: '', adminPhotos: [], deviceHistory: [], gender: 'Male', dob: '1992-08-20', sticker: '😊' }
+            U10001: { id: 'U10001', name: 'မောင်မောင်', bio: '', photos: [], photoLimit: 4, lat: null, lng: null, password: '123456', region: '', adminPhotos: [], deviceHistory: [], gender: 'Male', dob: '1990-01-01', sticker: '😊' },
+            U10002: { id: 'U10002', name: 'လှလှ', bio: '', photos: [], photoLimit: 4, lat: null, lng: null, password: '123456', region: '', adminPhotos: [], deviceHistory: [], gender: 'Female', dob: '1995-05-15', sticker: '❤️' },
+            U10003: { id: 'U10003', name: 'Aung', bio: '', photos: [], photoLimit: 4, lat: null, lng: null, password: '123456', region: '', adminPhotos: [], deviceHistory: [], gender: 'Male', dob: '1992-08-20', sticker: '😊' }
         },
         req: [],
         friends: [],
@@ -2167,8 +2167,8 @@
         if (gender) gender.value = u.gender || '';
         var age = document.getElementById('profileAge');
         if (age) age.textContent = calcAge(u.dob) || '-';
-        var regionDisplay = document.getElementById('profileRegionDisplay');
-        if (regionDisplay) { regionDisplay.textContent = u.region && u.region.trim() ? u.region : '-'; }
+        var regionInput = document.getElementById('profileRegionInput');
+        if (regionInput) { regionInput.value = u.region || ''; }
         var stickerInput = document.getElementById('profileStickerInput');
         if (stickerInput) stickerInput.value = u.sticker || '';
         var decorationInput = document.getElementById('profileDecorationInput');
@@ -2555,7 +2555,7 @@
             dob: '', 
             gender: '', 
             photos: [], 
-            photoLimit: 32, 
+            photoLimit: 4, 
             lat: null, 
             lng: null, 
             password: p, 
@@ -2792,6 +2792,7 @@
         u.bio = val('bio') || '';
         u.dob = val('profileDob') || '';
         u.gender = val('profileGender') || '';
+        u.region = val('profileRegionInput') || '';
         u.accountName = u.accountName || name;
         
         // Save sticker
@@ -2810,7 +2811,7 @@
         g.innerHTML = '';
         
         u.photos = Array.isArray(u.photos) ? u.photos.slice(0, 32) : [];
-        for (var i = 0; i < 32; i++) {
+        for (var i = 0; i < 4; i++) {
             var d = document.createElement('div');
             d.className = 'profile-photo ' + (u.photos[i] ? '' : 'empty');
             d.onclick = function(slot) { return function() { pickPhoto(slot); }; }(i);
@@ -2835,31 +2836,14 @@
             g.appendChild(d);
         }
         
-        u.adminPhotos = Array.isArray(u.adminPhotos) ? u.adminPhotos.slice(0, 0) : [];
-        for (var j = 0; j < 0; j++) {
-            var d2 = document.createElement('div');
-            d2.className = 'profile-photo admin-slot';
-            if (u.adminPhotos[j]) {
-                var im2 = document.createElement('img');
-                im2.src = u.adminPhotos[j];
-                im2.alt = 'Admin photo ' + (j + 1);
-                d2.appendChild(im2);
-            } else {
-                d2.style.background = '#ffffff';
-            }
-            g.appendChild(d2);
-        }
-        
+
         var lim = document.getElementById('limit');
-        if (lim) lim.textContent = 'User Photos: ' + u.photos.length + '/4 • Admin Photos: ' + u.adminPhotos.filter(function(p) { return p; }).length + '/28';
+        if (lim) lim.textContent = 'User Photos: ' + u.photos.length + '/32';
     }
 
     function pickPhoto(i) {
         if (!me) { alert('အရင် Account ဝင်ပါ'); return; }
-        if (i >= 32) {
-            alert('ဤပုံနေရာမရှိပါ။');
-            return;
-        }
+        if (i >= 32) return;
         photoSlot = i;
         var box = document.getElementById('photoChoiceBackdrop');
         if (box) box.style.display = 'flex';
@@ -3058,15 +3042,17 @@
     function requestFriend(id) {
         if (!me || !db || !id || id === me) return false;
         if (isBlocked(id)) { showToast('🚫 ဒီသုံးစွဲသူကို ဘလော့လုပ်ထားပါသည်။'); return false; }
-        if (!db.friends.some(function(x) { return (x.a === me && x.b === id) || (x.a === id && x.b === me); })) {
-            db.friends.push({ a: me, b: id });
+        if (!db.friends.some(function(x){ return (x.a===me&&x.b===id)||(x.a===id&&x.b===me); })) {
+            db.friends.push({a:me,b:id,time:Date.now()});
             db.req = db.req.filter(function(r){ return !((r.f===me&&r.t===id)||(r.f===id&&r.t===me)); });
             save();
-            refresh();
-            showToast('✅ Auto Friend ဖြစ်သွားပါပြီ');
+            updateBadges();
+            searchOnboardUsers();
+            showToast('✅ Friend ဖြစ်ပြီးပါပြီ');
         }
         return false;
     }
+
 
     function accept(id) {
         db.req = db.req.filter(function(r) { return !(r.f === id && r.t === me); });
@@ -3184,7 +3170,19 @@
         db.groupNotifications.push(Object.assign({id:'GN'+Date.now()+Math.random().toString(36).slice(2,7), seen:false}, item, {to:userId}));
     }
 
-    function requestJoinGroup(groupId) {
+        function autoJoinGroup(groupId) {
+        var g = db.groups.find(function(x){return x.id===groupId;});
+        if (!g || !me) return;
+        g.members = Array.isArray(g.members) ? g.members : [];
+        if (!g.members.includes(me)) g.members.push(me);
+        g.joinRequests = Array.isArray(g.joinRequests) ? g.joinRequests.filter(function(id){return id!==me;}) : [];
+        save();
+        renderGroupDetail();
+        renderMyGroups();
+        showToast('✅ အသင်းထဲ ဝင်ပြီးပါပြီ');
+    }
+
+function requestJoinGroup(groupId) {
         var g = db.groups.find(function(x) { return x.id === groupId; });
         if (!g || !me) return;
         g.members = Array.isArray(g.members) ? g.members : [];
@@ -3195,18 +3193,17 @@
             return;
         }
         if (g.members.length >= 20) { alert('အသင်းပြည့်နေပါပြီ'); return; }
-        if (!g.members.includes(me)) {
-            g.members.push(me);
-            g.memberActivity = g.memberActivity || {};
-            g.memberRanks = g.memberRanks || {};
-            g.memberActivity[me] = 0;
-            g.memberRanks[me] = 1;
-            addGroupSystemMessage(g, '👋 ' + (db.users[me].name || me) + ' သည် အသင်းထဲသို့ ဝင်ရောက်ပါသည်။');
-            save();
+        if (g.joinRequests.includes(me)) {
+            alert('⏳ အသင်းဝင်ခွင့်တောင်းထားပြီးပါပြီ။ ပိုင်ရှင်/အုပ်ချုပ်သူ လက်ခံပေးရန် စောင့်ပါ။');
             renderGroupDetail();
-            refresh();
-            alert('✅ Auto အသင်းဝင်ဖြစ်ပါပြီ');
+            return;
         }
+        g.joinRequests.push(me);
+        addGroupNotification(g.owner, {type:'join_request', groupId:g.id, from:me, time:Date.now(), seen:false});
+        (g.admins || []).forEach(function(adminId){ addGroupNotification(adminId, {type:'join_request', groupId:g.id, from:me, time:Date.now(), seen:false}); });
+        save();
+        renderGroupDetail();
+        updateBadges();
     }
 
     function approveJoinGroup(groupId, userId) {
@@ -3325,7 +3322,7 @@
             '<p class="small">ID: '+esc(g.id)+' • Level ' + (g.level || 1) + ' • Members '+g.members.length+'/20</p>';
 
         if (!isMember && g.owner !== me) {
-            html += hasPending ? '<div class="status">⏳ ဝင်ခွင့်တောင်းထားပြီးပါပြီ။ ပိုင်ရှင်/အုပ်ချုပ်သူ လက်ခံပေးရန် စောင့်နေပါသည်။</div>' : '<button class="btn green" onclick="requestJoinGroup(\''+g.id+'\')">🙋 အသင်းဝင်ရန်</button>';
+            html += hasPending ? '<div class="status">⏳ ဝင်ခွင့်တောင်းထားပြီးပါပြီ။ ပိုင်ရှင်/အုပ်ချုပ်သူ လက်ခံပေးရန် စောင့်နေပါသည်။</div>' : '<button class="btn green" onclick="autoJoinGroup(\''+g.id+'\')">🙋 အသင်းဝင်ခွင့်တောင်း</button>';
         }
 
         html += '<div id="groupSettingsMenu" style="display:none; background:#f8f9fa; border-radius:8px; padding:8px; margin:8px 0;">';
@@ -3339,7 +3336,7 @@
         html += '<button class="menu-item" onclick="showGroupSettings()" style="border:0;background:transparent;padding:8px;">✖️ ပိတ်မည်</button></div>';
 
         if (isManager && g.joinRequests.length) {
-            html += '<hr><h3>📨 အသင်းဝင်ရန်ထားသူများ ('+g.joinRequests.length+')</h3>';
+            html += '<hr><h3>📨 အသင်းဝင်ခွင့်တောင်းထားသူများ ('+g.joinRequests.length+')</h3>';
             g.joinRequests.forEach(function(id) {
                 var u = db.users[id] || {};
                 var av = getUserAvatar(u);
@@ -3633,34 +3630,5 @@
         <div class="dob-picker-footer"><button class="dob-today" type="button" onclick="dobPickerToday()">ယနေ့</button><button class="dob-cancel" type="button" onclick="closeDobPicker()">ပိတ်မည်</button></div>
     </div>
 </div>
-
-<script>
-/* Bee Chat blank page protection fix */
-(function(){
-  function safeCall(fn){
-    try { return fn(); } catch(e) {
-      console.error('BeeChat fix:', e);
-      var box = document.getElementById('groupDetailBox') || document.getElementById('userProfileBox');
-      if(box) box.innerHTML = '<div class="small">စာမျက်နှာဖွင့်ရာတွင် အမှားဖြစ်နေပါသည်။ ပြန်ကြိုးစားပါ။</div>';
-    }
-  }
-  window.addEventListener('error', function(e){
-    console.error('BeeChat JS error:', e.error || e.message);
-  });
-  var oldView = window.viewUserProfile;
-  if(oldView){
-    window.viewUserProfile = function(id){
-      return safeCall(function(){ return oldView(id); });
-    };
-  }
-  var oldOpen = window.openGroup;
-  if(oldOpen){
-    window.openGroup = function(id){
-      return safeCall(function(){ return oldOpen(id); });
-    };
-  }
-})();
-</script>
-
 </body>
     </html>
