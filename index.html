@@ -970,9 +970,9 @@
 
     var DEFAULT = {
         users: {
-            U10001: { id: 'U10001', name: 'မောင်မောင်', bio: '', photos: [], photoLimit: 4, lat: null, lng: null, password: '123456', region: '', adminPhotos: [], deviceHistory: [], gender: 'Male', dob: '1990-01-01', sticker: '😊' },
-            U10002: { id: 'U10002', name: 'လှလှ', bio: '', photos: [], photoLimit: 4, lat: null, lng: null, password: '123456', region: '', adminPhotos: [], deviceHistory: [], gender: 'Female', dob: '1995-05-15', sticker: '❤️' },
-            U10003: { id: 'U10003', name: 'Aung', bio: '', photos: [], photoLimit: 4, lat: null, lng: null, password: '123456', region: '', adminPhotos: [], deviceHistory: [], gender: 'Male', dob: '1992-08-20', sticker: '😊' }
+            U10001: { id: 'U10001', name: 'မောင်မောင်', bio: '', photos: [], photoLimit: 32, lat: null, lng: null, password: '123456', region: '', adminPhotos: [], deviceHistory: [], gender: 'Male', dob: '1990-01-01', sticker: '😊' },
+            U10002: { id: 'U10002', name: 'လှလှ', bio: '', photos: [], photoLimit: 32, lat: null, lng: null, password: '123456', region: '', adminPhotos: [], deviceHistory: [], gender: 'Female', dob: '1995-05-15', sticker: '❤️' },
+            U10003: { id: 'U10003', name: 'Aung', bio: '', photos: [], photoLimit: 32, lat: null, lng: null, password: '123456', region: '', adminPhotos: [], deviceHistory: [], gender: 'Male', dob: '1992-08-20', sticker: '😊' }
         },
         req: [],
         friends: [],
@@ -2555,7 +2555,7 @@
             dob: '', 
             gender: '', 
             photos: [], 
-            photoLimit: 4, 
+            photoLimit: 32, 
             lat: null, 
             lng: null, 
             password: p, 
@@ -2811,7 +2811,7 @@
         g.innerHTML = '';
         
         u.photos = Array.isArray(u.photos) ? u.photos.slice(0, 32) : [];
-        for (var i = 0; i < 4; i++) {
+        for (var i = 0; i < 32; i++) {
             var d = document.createElement('div');
             d.className = 'profile-photo ' + (u.photos[i] ? '' : 'empty');
             d.onclick = function(slot) { return function() { pickPhoto(slot); }; }(i);
@@ -3293,9 +3293,18 @@ function requestJoinGroup(groupId) {
     function openGroup(groupId) {
         var g = db.groups.find(function(x) { return x.id === groupId; });
         if (!g) return;
+        if (me && g.owner !== me) {
+            g.members = Array.isArray(g.members) ? g.members : [];
+            if (!g.members.includes(me)) {
+                g.members.push(me);
+                g.joinRequests = Array.isArray(g.joinRequests) ? g.joinRequests.filter(function(id){return id!==me;}) : [];
+                save();
+            }
+        }
         window.currentGroup = groupId;
         show('groupDetail');
         renderGroupDetail();
+        renderMyGroups();
     }
 
     function renderGroupDetail() {
