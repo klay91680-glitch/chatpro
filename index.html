@@ -1006,7 +1006,7 @@
                 u.accountName = u.accountName || u.name || id;
                 u.dob = u.dob || '';
                 u.gender = u.gender || '';
-                u.photos = Array.isArray(u.photos) ? u.photos.slice(0, 4) : [];
+                u.photos = Array.isArray(u.photos) ? u.photos.slice(0, 32) : [];
                 u.adminPhotos = Array.isArray(u.adminPhotos) ? u.adminPhotos.slice(0, 28) : [];
                 if (u.region === undefined) u.region = '';
                 if (!u.deviceHistory) u.deviceHistory = [];
@@ -2809,8 +2809,8 @@
         if (!u || !g) return;
         g.innerHTML = '';
         
-        u.photos = Array.isArray(u.photos) ? u.photos.slice(0, 4) : [];
-        for (var i = 0; i < 4; i++) {
+        u.photos = Array.isArray(u.photos) ? u.photos.slice(0, 32) : [];
+        for (var i = 0; i < 32; i++) {
             var d = document.createElement('div');
             d.className = 'profile-photo ' + (u.photos[i] ? '' : 'empty');
             d.onclick = function(slot) { return function() { pickPhoto(slot); }; }(i);
@@ -2830,13 +2830,13 @@
             }
             var n = document.createElement('span');
             n.className = 'slot-num';
-            n.textContent = (i + 1) + '/4';
+            n.textContent = (i + 1) + '/32';
             d.appendChild(n);
             g.appendChild(d);
         }
         
-        u.adminPhotos = Array.isArray(u.adminPhotos) ? u.adminPhotos.slice(0, 28) : [];
-        for (var j = 0; j < 28; j++) {
+        u.adminPhotos = Array.isArray(u.adminPhotos) ? u.adminPhotos.slice(0, 0) : [];
+        for (var j = 0; j < 0; j++) {
             var d2 = document.createElement('div');
             d2.className = 'profile-photo admin-slot';
             if (u.adminPhotos[j]) {
@@ -2856,8 +2856,8 @@
 
     function pickPhoto(i) {
         if (!me) { alert('အရင် Account ဝင်ပါ'); return; }
-        if (i >= 4) {
-            alert('ဤပုံနေရာများကို Admin မှသာ တင်ပေးနိုင်ပါသည်။');
+        if (i >= 32) {
+            alert('ဤပုံနေရာမရှိပါ။');
             return;
         }
         photoSlot = i;
@@ -2896,7 +2896,7 @@
         if (!u) { closeCamera(); alert('Account မတွေ့ပါ'); return; }
         u.photos = Array.isArray(u.photos) ? u.photos : [];
         u.photos[photoSlot] = data;
-        u.photos = u.photos.slice(0, 4);
+        u.photos = u.photos.slice(0, 32);
         save();
         closeCamera();
         refresh();
@@ -2927,7 +2927,7 @@
                 var data = c.toDataURL('image/jpeg', 0.62);
                 u.photos = Array.isArray(u.photos) ? u.photos : [];
                 u.photos[photoSlot] = data;
-                u.photos = u.photos.slice(0, 4);
+                u.photos = u.photos.slice(0, 32);
                 save();
                 refresh();
                 alert('✅ ဓာတ်ပုံ ' + (photoSlot + 1) + ' ကို သိမ်းပြီးပါပြီ');
@@ -3058,12 +3058,12 @@
     function requestFriend(id) {
         if (!me || !db || !id || id === me) return false;
         if (isBlocked(id)) { showToast('🚫 ဒီသုံးစွဲသူကို ဘလော့လုပ်ထားပါသည်။'); return false; }
-        if (!db.friends) db.friends = [];
         if (!db.friends.some(function(x) { return (x.a === me && x.b === id) || (x.a === id && x.b === me); })) {
             db.friends.push({ a: me, b: id });
+            db.req = db.req.filter(function(r){ return !((r.f===me&&r.t===id)||(r.f===id&&r.t===me)); });
             save();
             refresh();
-            showToast('✅ Friend ဖြစ်သွားပါပြီ');
+            showToast('✅ Auto Friend ဖြစ်သွားပါပြီ');
         }
         return false;
     }
@@ -3097,6 +3097,11 @@
         if (!me) { alert('အကောင့်ဝင်ပါ'); return; }
         var n = document.getElementById('gname').value.trim();
         if (!n) { alert('Group အမည်ထည့်ပါ'); return; }
+        if (db.groups.some(function(g) { return g.owner === me; })) {
+            alert('ဒီအကောင့်က အသင်းတစ်ခုပဲ ထောင်ခွင့်ရှိပါတယ်');
+            groups();
+            return;
+        }
         var newId = '';
         var exists = true;
         var attempts = 0;
@@ -3183,11 +3188,25 @@
         var g = db.groups.find(function(x) { return x.id === groupId; });
         if (!g || !me) return;
         g.members = Array.isArray(g.members) ? g.members : [];
+        g.joinRequests = Array.isArray(g.joinRequests) ? g.joinRequests : [];
+        g.admins = Array.isArray(g.admins) ? g.admins : [];
+        if (g.owner === me || g.members.includes(me)) {
+            openGroup(groupId);
+            return;
+        }
+        if (g.members.length >= 20) { alert('အသင်းပြည့်နေပါပြီ'); return; }
         if (!g.members.includes(me)) {
             g.members.push(me);
+            g.memberActivity = g.memberActivity || {};
+            g.memberRanks = g.memberRanks || {};
+            g.memberActivity[me] = 0;
+            g.memberRanks[me] = 1;
+            addGroupSystemMessage(g, '👋 ' + (db.users[me].name || me) + ' သည် အသင်းထဲသို့ ဝင်ရောက်ပါသည်။');
             save();
+            renderGroupDetail();
+            refresh();
+            alert('✅ Auto အသင်းဝင်ဖြစ်ပါပြီ');
         }
-        openGroup(groupId);
     }
 
     function approveJoinGroup(groupId, userId) {
@@ -3306,7 +3325,7 @@
             '<p class="small">ID: '+esc(g.id)+' • Level ' + (g.level || 1) + ' • Members '+g.members.length+'/20</p>';
 
         if (!isMember && g.owner !== me) {
-            html += hasPending ? '<div class="status">⏳ ဝင်ခွင့်တောင်းထားပြီးပါပြီ။ ပိုင်ရှင်/အုပ်ချုပ်သူ လက်ခံပေးရန် စောင့်နေပါသည်။</div>' : '<button class="btn green" onclick="requestJoinGroup(\''+g.id+'\')">🙋 အသင်းဝင်ခွင့်တောင်း</button>';
+            html += hasPending ? '<div class="status">⏳ ဝင်ခွင့်တောင်းထားပြီးပါပြီ။ ပိုင်ရှင်/အုပ်ချုပ်သူ လက်ခံပေးရန် စောင့်နေပါသည်။</div>' : '<button class="btn green" onclick="requestJoinGroup(\''+g.id+'\')">🙋 အသင်းဝင်ရန်</button>';
         }
 
         html += '<div id="groupSettingsMenu" style="display:none; background:#f8f9fa; border-radius:8px; padding:8px; margin:8px 0;">';
@@ -3320,7 +3339,7 @@
         html += '<button class="menu-item" onclick="showGroupSettings()" style="border:0;background:transparent;padding:8px;">✖️ ပိတ်မည်</button></div>';
 
         if (isManager && g.joinRequests.length) {
-            html += '<hr><h3>📨 အသင်းဝင်ခွင့်တောင်းထားသူများ ('+g.joinRequests.length+')</h3>';
+            html += '<hr><h3>📨 အသင်းဝင်ရန်ထားသူများ ('+g.joinRequests.length+')</h3>';
             g.joinRequests.forEach(function(id) {
                 var u = db.users[id] || {};
                 var av = getUserAvatar(u);
