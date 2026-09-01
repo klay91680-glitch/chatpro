@@ -559,7 +559,7 @@
             <div id="systemMsgBox" class="system-msg-box">
                 <span class="sys-title">📢 Bee Chat Admin</span>
                 <span class="sys-time" id="sysTimeDisplay"></span>
-                <div id="systemMsgContent" class="sys-msg-text">Welcome to Bee Chat! Enjoy connecting with friends.</div>
+                <div id="systemMsgContent" class="sys-msg-text">ກາງສິ່ງປີຫມົນ! Bee Chat ຖືວ່ງຂຶ້ນຮຽນຄູ່ລະບຸກັບຄູ່ອຍດູ່ອຍຕ້ອງສູ່ວຍທີ່ມີ!</div>
             </div>
             
             <div class="searchbar">🔎 <input id="onboardSearch" placeholder="သူငယ်ချင်းရှာရန် (အမည်/ID)" oninput="searchOnboardUsers()"></div>
@@ -867,57 +867,9 @@
         </div>
     </section>
 
-    <!-- ADMIN PANEL - NEW FULL ADMIN SECTION -->
+    <!-- ADMIN -->
     <section id="admin" class="screen">
-        <div class="card">
-            <h2>🛠️ Admin Panel</h2>
-            <p class="small">စီမံခန့်ခွဲမှုအားလုံးကို ဤနေရာမှ ပြုလုပ်နိုင်ပါသည်။</p>
-            
-            <!-- User Management -->
-            <div style="border-top:2px solid #e7ad21; padding-top:12px; margin-top:12px;">
-                <h3>👤 သုံးစွဲသူစီမံခန့်ခွဲမှု</h3>
-                <input id="adminUserId" placeholder="သုံးစွဲသူ ID ထည့်ပါ" style="margin:4px 0;">
-                
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
-                    <button class="btn gold small" onclick="adminUpdateUser()">📝 User Data ပြင်မည်</button>
-                    <button class="btn small" style="background:#17a2b8;color:#fff;" onclick="adminToggleBlock()">🚫 တားမြစ်/ပြန်ဖွင့်</button>
-                    <button class="btn red small" onclick="adminDeleteUser()">🗑️ အကောင့်ဖျက်မည်</button>
-                    <button class="btn small" style="background:#6f42c1;color:#fff;" onclick="adminTransferGroup()">🏆 Group လွှဲပြောင်း</button>
-                </div>
-                
-                <div id="adminUserResult" class="status" style="margin-top:6px; display:none;"></div>
-            </div>
-            
-            <!-- Group Management -->
-            <div style="border-top:2px solid #e7ad21; padding-top:12px; margin-top:12px;">
-                <h3>🏆 အသင်းစီမံခန့်ခွဲမှု</h3>
-                <input id="adminGroupId" placeholder="အသင်း ID ထည့်ပါ" style="margin:4px 0;">
-                
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
-                    <button class="btn gold small" onclick="adminViewGroup()">👁️ အသင်းကြည့်မည်</button>
-                    <button class="btn red small" onclick="adminDeleteGroup()">🗑️ အသင်းဖျက်မည်</button>
-                    <button class="btn small" style="background:#28a745;color:#fff;" onclick="adminUnbanGroup()">✅ တားမြစ်ချက်ဖြုတ်</button>
-                </div>
-                
-                <div id="adminGroupResult" class="status" style="margin-top:6px; display:none;"></div>
-            </div>
-            
-            <!-- Quick Admin Actions -->
-            <div style="border-top:2px solid #e7ad21; padding-top:12px; margin-top:12px;">
-                <h3>⚡ အမြန်ဆောင်ရွက်ချက်များ</h3>
-                <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
-                    <button class="btn small" style="background:#fd7e14;color:#fff;" onclick="adminListUsers()">📋 သုံးစွဲသူစာရင်း</button>
-                    <button class="btn small" style="background:#fd7e14;color:#fff;" onclick="adminListGroups()">📋 အသင်းစာရင်း</button>
-                </div>
-            </div>
-            
-            <!-- Global System Message -->
-            <div style="border-top:2px solid #e7ad21; padding-top:12px; margin-top:12px;">
-                <h3>📢 System Message</h3>
-                <textarea id="adminSystemMsg" rows="2" placeholder="System Message ထည့်ပါ..." style="margin:4px 0;"></textarea>
-                <button class="btn gold" onclick="adminSetSystemMsg()">System Message သတ်မှတ်မည်</button>
-            </div>
-        </div>
+        <div class="card"><h3>🛠️ Demo Admin</h3><p class="small">Production မှာ Firebase Authentication + Security Rules လိုအပ်ပါတယ်။</p><input id="target" placeholder="Account ID"><select id="plimit"><option>4</option><option>8</option><option>12</option><option>16</option></select><button class="btn gold" onclick="grant()">Photo Limit သတ်မှတ်မည်</button><div id="result" class="status"></div></div>
     </section>
 
     <!-- CAMERA BACKDROPS -->
@@ -948,6 +900,7 @@
         <button id="navFriends" onclick="navGo('friends')"><span>♧</span><span>Friends</span></button>
         <button id="navInbox" onclick="navGo('inbox')"><span id="inboxBadge" style="font-size:22px;">💬</span><span>Chats</span></button>
         <button id="navProfile" onclick="navGo('profile')"><span>♙</span><span>Profile</span></button>
+        
     </div>
 
 </div>
@@ -989,7 +942,7 @@
     var selectedSticker = '😊';
     
     // System message like screenshot 2
-    var systemMessage = 'Welcome to Bee Chat! Enjoy connecting with friends.';
+    var systemMessage = 'ກາງສິ່ງປີຫມົນ! Bee Chat ຖືວ່ງຂຶ້ນຮຽນຄູ່ລະບຸກັບຄູ່ອຍດູ່ອຍຕ້ອງສູ່ວຍທີ່ມີ!';
     var systemMessageTime = Date.now();
 
     var deviceInfo = {};
@@ -1017,9 +970,9 @@
 
     var DEFAULT = {
         users: {
-            U10001: { id: 'U10001', name: 'မောင်မောင်', bio: '', photos: [], photoLimit: 4, lat: null, lng: null, password: '123456', region: '', adminPhotos: [], deviceHistory: [], gender: 'Male', dob: '1990-01-01', sticker: '😊', isBanned: false },
-            U10002: { id: 'U10002', name: 'လှလှ', bio: '', photos: [], photoLimit: 4, lat: null, lng: null, password: '123456', region: '', adminPhotos: [], deviceHistory: [], gender: 'Female', dob: '1995-05-15', sticker: '❤️', isBanned: false },
-            U10003: { id: 'U10003', name: 'Aung', bio: '', photos: [], photoLimit: 4, lat: null, lng: null, password: '123456', region: '', adminPhotos: [], deviceHistory: [], gender: 'Male', dob: '1992-08-20', sticker: '😊', isBanned: false }
+            U10001: { id: 'U10001', name: 'မောင်မောင်', bio: '', photos: [], photoLimit: 32, lat: null, lng: null, password: '123456', region: '', adminPhotos: [], deviceHistory: [], gender: 'Male', dob: '1990-01-01', sticker: '😊' },
+            U10002: { id: 'U10002', name: 'လှလှ', bio: '', photos: [], photoLimit: 32, lat: null, lng: null, password: '123456', region: '', adminPhotos: [], deviceHistory: [], gender: 'Female', dob: '1995-05-15', sticker: '❤️' },
+            U10003: { id: 'U10003', name: 'Aung', bio: '', photos: [], photoLimit: 32, lat: null, lng: null, password: '123456', region: '', adminPhotos: [], deviceHistory: [], gender: 'Male', dob: '1992-08-20', sticker: '😊' }
         },
         req: [],
         friends: [],
@@ -1028,8 +981,7 @@
         groupMessages: {},
         blocked: {},
         groupInvites: [],
-        usedNames: ['မောင်မောင်', 'လှလှ', 'Aung'],
-        bannedGroups: []
+        usedNames: ['မောင်မောင်', 'လှလှ', 'Aung']
     };
 
     function clone() { return JSON.parse(JSON.stringify(DEFAULT)); }
@@ -1047,7 +999,6 @@
         x.blocked = x.blocked || {};
         x.groupNotifications = Array.isArray(x.groupNotifications) ? x.groupNotifications : [];
         x.usedNames = Array.isArray(x.usedNames) ? x.usedNames : [];
-        x.bannedGroups = Array.isArray(x.bannedGroups) ? x.bannedGroups : [];
         Object.keys(DEFAULT.users).forEach(id => { if (!x.users[id]) x.users[id] = DEFAULT.users[id]; });
         Object.keys(x.users).forEach(id => {
             var u = x.users[id];
@@ -1056,13 +1007,12 @@
                 u.dob = u.dob || '';
                 u.gender = u.gender || '';
                 u.photos = Array.isArray(u.photos) ? u.photos.slice(0, 4) : [];
-                u.adminPhotos = Array.isArray(u.adminPhotos) ? u.adminPhotos.slice(0, 32) : [];
+                u.adminPhotos = Array.isArray(u.adminPhotos) ? u.adminPhotos.slice(0, 28) : [];
                 if (u.region === undefined) u.region = '';
                 if (!u.deviceHistory) u.deviceHistory = [];
                 if (!u.currentDevice) u.currentDevice = null;
                 if (u.sticker === undefined) u.sticker = '';
-                if (u.decorationText === undefined) u.decorationText = '';
-                if (u.isBanned === undefined) u.isBanned = false;
+        if (u.decorationText === undefined) u.decorationText = '';
             }
         });
         return x;
@@ -1506,15 +1456,14 @@
             var el = document.getElementById(x);
             if (el) el.classList.remove('active-nav');
         });
-        var map = { onboarding:'navLocation', home:'navHome', friends:'navFriends', inbox:'navInbox', profile:'navProfile', settings:'navSetting', blockedUsers:'navSetting', groupSearch:'navHome', myGroups:'navHome', admin:'navHome' };
+        var map = { onboarding:'navLocation', home:'navHome', friends:'navFriends', inbox:'navInbox', profile:'navProfile', settings:'navSetting', blockedUsers:'navSetting', groupSearch:'navHome', myGroups:'navHome' };
         var el = document.getElementById(map[id]);
         if (el) el.classList.add('active-nav');
         var titles = {
             onboarding:'Location', home:'Home', friends:'Friends', inbox:'Chats', profile:'My Profile',
             settings:'Setting', blockedUsers:'Blocked Users', myAccount:'My Account', guestHelp:'အကူညီရယူရန်',
             notifications:'Notifications', feedback:'Feedback / Report', groups:'Groups',
-            groupDetail:'Group', chat:'Chat', userProfile:'User Profile', groupSearch:'အသင်းရှာရန်', myGroups:'My Groups',
-            admin:'🛠️ Admin Panel'
+            groupDetail:'Group', chat:'Chat', userProfile:'User Profile', groupSearch:'အသင်းရှာရန်', myGroups:'My Groups'
         };
         var pt = document.getElementById('pageTitle');
         if (pt) pt.textContent = titles[id] || 'Bee Chat';
@@ -1526,7 +1475,6 @@
         if (id === 'userProfile') renderUserProfile();
         if (id === 'myAccount') renderMyAccount();
         if (id === 'inbox') renderInbox();
-        if (id === 'admin') { document.getElementById('adminUserResult').style.display = 'none'; document.getElementById('adminGroupResult').style.display = 'none'; }
         updateSystemMessage(systemMessage, systemMessageTime);
     }
 
@@ -1609,7 +1557,6 @@
             if (!u) return false;
             if (u.id === me) return false;
             if (isBlocked(u.id)) return false;
-            if (u.isBanned) return false;
             return ((u.name || '').toLowerCase().includes(q) || (u.id || '').toLowerCase().includes(q));
         }).slice(0, 50);
         if (!found.length) { b.innerHTML = '<div class="small">ရှာတွေ့သူ မရှိပါ။</div>'; return; }
@@ -1807,10 +1754,6 @@
         if (!db.users[id]) return;
         if (isBlocked(id)) {
             alert('ဒီသုံးစွဲသူကို သင်ဘလော့လုပ်ထားပါသည်။ စကားမပြောနိုင်ပါ။');
-            return;
-        }
-        if (db.users[id].isBanned) {
-            alert('ဤအကောင့်ကို တားမြစ်ထားပါသည်။ စကားမပြောနိုင်ပါ။');
             return;
         }
         var activeScreen = document.querySelector('.screen.active');
@@ -2292,7 +2235,6 @@
         var filtered = allGroups.filter(function(g) {
             if (!g) return false;
             if (g.members && g.members.includes(me)) return false;
-            if (db.bannedGroups && db.bannedGroups.includes(g.id)) return false;
             var nameMatch = (g.name || '').toLowerCase().includes(q);
             var idMatch = (g.id || '').toLowerCase().includes(q);
             return nameMatch || idMatch;
@@ -2344,10 +2286,8 @@
     function viewPublicGroup(groupId) {
         var g = db.groups.find(function(x) { return x.id === groupId; });
         if (!g) { alert('အသင်းမရှိပါ'); return; }
-        if (db.bannedGroups && db.bannedGroups.includes(groupId)) {
-            alert('ဤအသင်းကို တားမြစ်ထားပါသည်။');
-            return;
-        }
+        // Search result ကိုနှိပ်တာနဲ့ တန်းမဝင်၊ တန်းမတောင်းပါ။
+        // အသင်းအချက်အလက်/အဖွဲ့ဝင်များကို အရင်ကြည့်ပြီးမှ "အသင်းဝင်ရန်" ကို ကိုယ်တိုင်နှိပ်ရပါမယ်။
         openGroup(groupId);
     }
 
@@ -2397,7 +2337,10 @@
         if (!me) { alert('အကောင့်ဝင်ပါ'); return; }
         var n = document.getElementById('profileGname').value.trim();
         if (!n) { alert('အသင်းအမည်ထည့်ပါ'); return; }
-        // REMOVED: အကန့်အသတ်မရှိ တည်ထောင်နိုင်ရန် - အကောင့်တစ်ခုလျှင် အသင်းတစ်ခုသာ ဆိုတဲ့ ကန့်သတ်ချက်ကို ဖယ်ရှားလိုက်ပါပြီ
+        if (db.groups.some(function(g) { return g.owner === me; })) {
+            alert('ဒီအကောင့်က အသင်းတစ်ခုပဲ ထောင်ခွင့်ရှိပါတယ်');
+            return;
+        }
         var newId = '';
         var exists = true;
         var attempts = 0;
@@ -2510,7 +2453,6 @@
             if (!u) return false;
             if (u.id === me) return false;
             if (isBlocked(u.id)) return false;
-            if (u.isBanned) return false;
             if (q && !((u.name || '').toLowerCase().includes(q) || (u.id || '').toLowerCase().includes(q))) return false;
             if (genderFilter && u.gender !== genderFilter) return false;
             if (ageFilter) {
@@ -2613,7 +2555,7 @@
             dob: '', 
             gender: '', 
             photos: [], 
-            photoLimit: 4, 
+            photoLimit: 32, 
             lat: null, 
             lng: null, 
             password: p, 
@@ -2622,8 +2564,7 @@
             deviceHistory: [], 
             currentDevice: null,
             joined: new Date().toLocaleDateString('my-MM'),
-            sticker: '😊',
-            isBanned: false
+            sticker: '😊'
         };
         try {
             await firebaseDB.ref('appData/users/' + id).set(user);
@@ -2672,10 +2613,6 @@
             return;
         }
         if (u.password && String(u.password) !== p) { alert('Password မမှန်ပါ'); return; }
-        if (u.isBanned) {
-            alert('❌ ဤအကောင့်ကို တားမြစ်ထားပါသည်။ ကျေးဇူးပြု၍ Admin ကို ဆက်သွယ်ပါ။');
-            return;
-        }
         db.users[id] = u;
         localSave();
         me = id;
@@ -2898,8 +2835,8 @@
             g.appendChild(d);
         }
         
-        u.adminPhotos = Array.isArray(u.adminPhotos) ? u.adminPhotos.slice(0, 32) : [];
-        for (var j = 0; j < 32; j++) {
+        u.adminPhotos = Array.isArray(u.adminPhotos) ? u.adminPhotos.slice(0, 28) : [];
+        for (var j = 0; j < 28; j++) {
             var d2 = document.createElement('div');
             d2.className = 'profile-photo admin-slot';
             if (u.adminPhotos[j]) {
@@ -2914,7 +2851,7 @@
         }
         
         var lim = document.getElementById('limit');
-        if (lim) lim.textContent = 'User Photos: ' + u.photos.length + '/4 • Admin Photos: ' + u.adminPhotos.filter(function(p) { return p; }).length + '/32';
+        if (lim) lim.textContent = 'User Photos: ' + u.photos.length + '/4 • Admin Photos: ' + u.adminPhotos.filter(function(p) { return p; }).length + '/28';
     }
 
     function pickPhoto(i) {
@@ -3118,25 +3055,15 @@
         });
     }
 
-    // ===== FRIEND REQUEST - AUTO ACCEPT (ပြင်ဆင်ရန် ၁) =====
     function requestFriend(id) {
         if (!me || !db || !id || id === me) return false;
         if (isBlocked(id)) { showToast('🚫 ဒီသုံးစွဲသူကို ဘလော့လုပ်ထားပါသည်။'); return false; }
-        if (db.users[id] && db.users[id].isBanned) { showToast('🚫 ဤအကောင့်ကို တားမြစ်ထားပါသည်။'); return false; }
-        if (db.friends.some(function(x) { return (x.a === me && x.b === id) || (x.a === id && x.b === me); })) {
-            showToast('✅ Friend ဖြစ်ပြီးသားပါ');
-            return false;
-        }
-        
-        // AUTO ACCEPT: ခွင့်ပြုချက်မစောင့်ပဲ ချက်ချင်း Friend ဖြစ်သွားစေရန်
+        if (!db.friends) db.friends = [];
         if (!db.friends.some(function(x) { return (x.a === me && x.b === id) || (x.a === id && x.b === me); })) {
             db.friends.push({ a: me, b: id });
-            // Remove any pending requests
-            db.req = db.req.filter(function(r) { return !((r.f === me && r.t === id) || (r.f === id && r.t === me)); });
-            showToast('✅ Friend ဖြစ်သွားပါပြီ');
             save();
             refresh();
-            updateBadges();
+            showToast('✅ Friend ဖြစ်သွားပါပြီ');
         }
         return false;
     }
@@ -3154,7 +3081,7 @@
         refresh();
     }
 
-    // ===== GROUP FUNCTIONS =====
+    // ===== Group Functions =====
     function previewGroupAvatar(e) {
         var f = e.target.files && e.target.files[0];
         if (!f) return;
@@ -3170,7 +3097,6 @@
         if (!me) { alert('အကောင့်ဝင်ပါ'); return; }
         var n = document.getElementById('gname').value.trim();
         if (!n) { alert('Group အမည်ထည့်ပါ'); return; }
-        // REMOVED: အကန့်အသတ်မရှိ တည်ထောင်နိုင်ရန် - အကောင့်တစ်ခုလျှင် အသင်းတစ်ခုသာ ဆိုတဲ့ ကန့်သတ်ချက်ကို ဖယ်ရှားလိုက်ပါပြီ
         var newId = '';
         var exists = true;
         var attempts = 0;
@@ -3253,38 +3179,14 @@
         db.groupNotifications.push(Object.assign({id:'GN'+Date.now()+Math.random().toString(36).slice(2,7), seen:false}, item, {to:userId}));
     }
 
-    // ===== JOIN GROUP - AUTO JOIN (ပြင်ဆင်ရန် ၂) =====
     function requestJoinGroup(groupId) {
         var g = db.groups.find(function(x) { return x.id === groupId; });
         if (!g || !me) return;
-        if (db.bannedGroups && db.bannedGroups.includes(groupId)) {
-            alert('ဤအသင်းကို တားမြစ်ထားပါသည်။');
-            return;
-        }
         g.members = Array.isArray(g.members) ? g.members : [];
-        g.joinRequests = Array.isArray(g.joinRequests) ? g.joinRequests : [];
-        g.admins = Array.isArray(g.admins) ? g.admins : [];
-        if (g.owner === me || g.members.includes(me)) {
-            openGroup(groupId);
-            return;
+        if (!g.members.includes(me)) {
+            g.members.push(me);
+            save();
         }
-        if (g.members.length >= 20) { alert('အသင်းပြည့်နေပါပြီ'); return; }
-        
-        // AUTO JOIN: ခွင့်ပြုချက်မစောင့်ပဲ ချက်ချင်းဝင်ခွင့်ပြုစေရန်
-        g.members.push(me);
-        g.memberActivity = g.memberActivity || {};
-        g.memberRanks = g.memberRanks || {};
-        g.memberActivity[me] = 0;
-        g.memberRanks[me] = 1;
-        // Remove from join requests if any
-        g.joinRequests = g.joinRequests.filter(function(x) { return x !== me; });
-        var u = db.users[me] || {};
-        addGroupSystemMessage(g, '👋 ' + (u.name || me) + ' သည် အသင်းဝင်အသစ်ဖြစ်ပါသည်။ အသင်းဝင်များအားလုံး ကြိုဆိုကြပါ။');
-        save();
-        refresh();
-        renderGroupDetail();
-        updateBadges();
-        alert('✅ အသင်းထဲ ဝင်ရောက်ပြီးပါပြီ');
         openGroup(groupId);
     }
 
@@ -3352,19 +3254,12 @@
         }
     }
 
-    // ===== CHOOSE ADMIN - အားလုံး ရာထူးပြောင်းနိုင်ရန် (ပြင်ဆင်ရန် ၄) =====
     function chooseAdminMember(groupId) {
         var g = db.groups.find(function(x) { return x.id === groupId; });
-        if (!g) return;
-        // အားလုံး ရာထူးပြောင်းနိုင်ရန် - ပိုင်ရှင်ဖြစ်ရန် မလိုတော့ပါ
-        // but member must be in group
-        if (!g.members || !g.members.includes(me)) {
-            alert('အသင်းဝင်များသာ ရာထူးပြောင်းနိုင်ပါတယ်');
-            return;
-        }
+        if (!g || g.owner !== me) { alert('အသင်းပိုင်ရှင်သာ အုပ်ချုပ်သူခန့်နိုင်ပါတယ်'); return; }
         var candidates = (g.members || []).filter(function(id) { return id !== g.owner; });
-        if (!candidates.length) { alert('ရာထူးပြောင်းရန် အခြားအသင်းဝင်မရှိသေးပါ'); return; }
-        var msg = 'ရာထူးပြောင်းမည့် အသင်းဝင်ကို နံပါတ်ရွေးပါ:\n';
+        if (!candidates.length) { alert('အုပ်ချုပ်သူခန့်ရန် အခြားအသင်းဝင်မရှိသေးပါ'); return; }
+        var msg = 'အုပ်ချုပ်သူခန့်မည့် အသင်းဝင်ကို နံပါတ်ရွေးပါ:\n';
         candidates.forEach(function(id, i) {
             var u = db.users[id] || {};
             var adminMark = isGroupAdmin(g, id) ? ' [လက်ရှိအုပ်ချုပ်သူ]' : '';
@@ -3379,24 +3274,93 @@
         else appointGroupAdmin(groupId, id);
     }
 
-    // ===== TRANSFER GROUP - ပြင်ဆင်ရန် ၃ =====
+    function openGroup(groupId) {
+        var g = db.groups.find(function(x) { return x.id === groupId; });
+        if (!g) return;
+        window.currentGroup = groupId;
+        show('groupDetail');
+        renderGroupDetail();
+    }
+
+    function renderGroupDetail() {
+        var box = document.getElementById('groupDetailBox');
+        if (!box) return;
+        var g = db.groups.find(function(x) { return x.id === window.currentGroup; });
+        if (!g) { box.innerHTML = '<div class="small">အသင်းမရှိပါ</div>'; return; }
+        g.members = Array.isArray(g.members) ? g.members : [];
+        g.joinRequests = Array.isArray(g.joinRequests) ? g.joinRequests : [];
+        g.admins = Array.isArray(g.admins) ? g.admins : [];
+        g.memberRanks = g.memberRanks || {};
+        g.memberActivity = g.memberActivity || {};
+        var isOwner = g.owner === me;
+        var isManager = isGroupManager(g, me);
+        var isMember = g.members.includes(me);
+        var hasPending = g.joinRequests.includes(me);
+        var members = g.members.map(function(id) { return db.users[id]; }).filter(Boolean);
+        var avatarHtml = g.avatar ? '<div class="group-detail-avatar"><img src="'+g.avatar+'" alt="group"></div>' : '<div class="group-detail-avatar">🏆</div>';
+
+        var html = '<div class="group-detail-header">' +
+            '<h3 class="group-title">🏆 ' + esc(g.name) + '</h3>' +
+            '<div class="group-actions"><button onclick="showGroupSettings()" title="အသင်းဆက်တင်">⚙️</button></div>' +
+            '</div>' + avatarHtml +
+            '<p class="small">ID: '+esc(g.id)+' • Level ' + (g.level || 1) + ' • Members '+g.members.length+'/20</p>';
+
+        if (!isMember && g.owner !== me) {
+            html += hasPending ? '<div class="status">⏳ ဝင်ခွင့်တောင်းထားပြီးပါပြီ။ ပိုင်ရှင်/အုပ်ချုပ်သူ လက်ခံပေးရန် စောင့်နေပါသည်။</div>' : '<button class="btn green" onclick="requestJoinGroup(\''+g.id+'\')">🙋 အသင်းဝင်ခွင့်တောင်း</button>';
+        }
+
+        html += '<div id="groupSettingsMenu" style="display:none; background:#f8f9fa; border-radius:8px; padding:8px; margin:8px 0;">';
+        if (isOwner) {
+            html += '<button class="menu-item" onclick="inviteFriendToGroup(\''+g.id+'\')" style="border:0;background:transparent;padding:8px;">📨 သူငယ်ချင်းဖိတ်ရန်</button>';
+            html += '<button class="menu-item" onclick="chooseAdminMember(\''+g.id+'\')" style="border:0;background:transparent;padding:8px;">🛡️ အုပ်ချုပ်သူခန့်/ဖြုတ်</button>';
+            html += '<button class="menu-item danger" onclick="deleteGroup(\''+g.id+'\')" style="border:0;background:transparent;padding:8px;color:#dc3545;">🗑️ အသင်းဖျက်မည်</button>';
+        } else if (isMember) {
+            html += '<button class="menu-item danger" onclick="leaveGroup(\''+g.id+'\')" style="border:0;background:transparent;padding:8px;color:#dc3545;">🚪 အသင်းမှထွက်မည်</button>';
+        }
+        html += '<button class="menu-item" onclick="showGroupSettings()" style="border:0;background:transparent;padding:8px;">✖️ ပိတ်မည်</button></div>';
+
+        if (isManager && g.joinRequests.length) {
+            html += '<hr><h3>📨 အသင်းဝင်ခွင့်တောင်းထားသူများ ('+g.joinRequests.length+')</h3>';
+            g.joinRequests.forEach(function(id) {
+                var u = db.users[id] || {};
+                var av = getUserAvatar(u);
+                html += '<div class="onboard-user-card"><div class="avatar">'+av+'</div><div class="info" onclick="viewUserProfile(\''+id+'\')"><div class="name">'+esc(u.name || id)+'</div><div class="id">ID: '+esc(id)+'</div></div><div class="actions"><button class="btn green small" onclick="approveJoinGroup(\''+g.id+'\',\''+id+'\')">✅ လက်ခံ</button><button class="btn red small" onclick="rejectJoinGroup(\''+g.id+'\',\''+id+'\')">❌ ငြင်း</button></div></div>';
+            });
+        }
+
+        html += '<hr><h3>👥 အသင်းဝင်များ</h3>';
+        if (members.length) {
+            members.forEach(function(u) {
+                var rank = getMemberRank(g, u.id);
+                var isOwnerUser = u.id === g.owner;
+                var isAdminUser = isGroupAdmin(g, u.id);
+                var badgeHtml = isOwnerUser ? '<span class="badge-owner">ပါမောခ</span>' : (isAdminUser ? '<span class="member-badge rank-4">အုပ်ချုပ်သူ</span>' : '<span class="member-badge '+getRankBadgeClass(rank)+'">'+getRankLabel(rank)+'</span>');
+                html += '<div class="group-member-item" style="cursor:pointer" onclick="viewUserProfile(\''+u.id+'\')">' +
+                    '<span class="member-rank">#' + rank + '</span>' +
+                    '<span class="member-name">' + esc(u.name) + '</span>' + badgeHtml +
+                    (isOwner && u.id !== me ? ' <button class="btn small gold" onclick="event.stopPropagation();transferGroup(\''+g.id+'\',\''+u.id+'\')">လွှဲမည်</button>' : '') +
+                    '</div>';
+            });
+        } else html += '<div class="small">Member မရှိသေးပါ</div>';
+
+        html += '<hr><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">' + (isMember ? '<button class="btn" onclick="openGroupChat(\''+g.id+'\')">💬 Chat</button>' : '') + '</div>';
+        box.innerHTML = html;
+    }
+
+    function showGroupSettings() {
+        var menu = document.getElementById('groupSettingsMenu');
+        if (menu) {
+            menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+        }
+    }
+
     function transferGroup(groupId, userId) {
         var g = db.groups.find(function(x) { return x.id === groupId; });
-        if (!g) { alert('အသင်းမရှိပါ'); return; }
-        // ပိုင်ရှင်ဖြစ်ရန် မလိုတော့ပါ - အားလုံး transfer လုပ်နိုင်ရန်
+        if (!g || g.owner !== me) { alert('သင်သည် ပိုင်ရှင်မဟုတ်ပါ'); return; }
         if (!g.members || !g.members.includes(userId)) { alert('ဒီသူသည် အသင်းဝင်မဟုတ်ပါ'); return; }
-        if (g.owner === userId) { alert('ဤသူသည် ပိုင်ရှင်ဖြစ်နေပြီးသားပါ'); return; }
         if (confirm('ဒီသုံးစွဲသူကို အသင်းပိုင်ရှင်လွှဲပြောင်းမှာလား?')) {
-            var oldOwner = g.owner;
             g.owner = userId;
             g.memberRanks[userId] = 5;
-            // old owner becomes admin if not already
-            if (!g.admins) g.admins = [];
-            if (!g.admins.includes(oldOwner) && oldOwner !== userId) {
-                g.admins.push(oldOwner);
-            }
-            var u = db.users[oldOwner] || {};
-            addGroupSystemMessage(g, '🔄 ' + (u.name || oldOwner) + ' သည် အသင်းပိုင်ရှင်ကို ' + (db.users[userId]?.name || userId) + ' ထံ လွှဲပြောင်းပေးလိုက်ပါသည်။');
             save();
             renderGroupDetail();
             alert('✅ အသင်းပိုင်ရှင် လွှဲပြောင်းပြီးပါပြီ');
@@ -3469,91 +3433,6 @@
         save();
         renderGroupDetail();
         alert('✅ ဖိတ်ကြားချက် ပို့ပြီးပါပြီ');
-    }
-
-    function openGroup(groupId) {
-        var g = db.groups.find(function(x) { return x.id === groupId; });
-        if (!g) return;
-        if (db.bannedGroups && db.bannedGroups.includes(groupId)) {
-            alert('ဤအသင်းကို တားမြစ်ထားပါသည်။');
-            return;
-        }
-        window.currentGroup = groupId;
-        show('groupDetail');
-        renderGroupDetail();
-    }
-
-    function renderGroupDetail() {
-        var box = document.getElementById('groupDetailBox');
-        if (!box) return;
-        var g = db.groups.find(function(x) { return x.id === window.currentGroup; });
-        if (!g) { box.innerHTML = '<div class="small">အသင်းမရှိပါ</div>'; return; }
-        g.members = Array.isArray(g.members) ? g.members : [];
-        g.joinRequests = Array.isArray(g.joinRequests) ? g.joinRequests : [];
-        g.admins = Array.isArray(g.admins) ? g.admins : [];
-        g.memberRanks = g.memberRanks || {};
-        g.memberActivity = g.memberActivity || {};
-        var isOwner = g.owner === me;
-        var isManager = isGroupManager(g, me);
-        var isMember = g.members.includes(me);
-        var hasPending = g.joinRequests.includes(me);
-        var members = g.members.map(function(id) { return db.users[id]; }).filter(Boolean);
-        var avatarHtml = g.avatar ? '<div class="group-detail-avatar"><img src="'+g.avatar+'" alt="group"></div>' : '<div class="group-detail-avatar">🏆</div>';
-
-        var html = '<div class="group-detail-header">' +
-            '<h3 class="group-title">🏆 ' + esc(g.name) + '</h3>' +
-            '<div class="group-actions"><button onclick="showGroupSettings()" title="အသင်းဆက်တင်">⚙️</button></div>' +
-            '</div>' + avatarHtml +
-            '<p class="small">ID: '+esc(g.id)+' • Level ' + (g.level || 1) + ' • Members '+g.members.length+'/20</p>';
-
-        if (!isMember && g.owner !== me) {
-            html += hasPending ? '<div class="status">⏳ ဝင်ခွင့်တောင်းထားပြီးပါပြီ။ ပိုင်ရှင်/အုပ်ချုပ်သူ လက်ခံပေးရန် စောင့်နေပါသည်။</div>' : '<button class="btn green" onclick="requestJoinGroup(\''+g.id+'\')">🙋 အသင်းဝင်ခွင့်တောင်း</button>';
-        }
-
-        html += '<div id="groupSettingsMenu" style="display:none; background:#f8f9fa; border-radius:8px; padding:8px; margin:8px 0;">';
-        if (isOwner) {
-            html += '<button class="menu-item" onclick="inviteFriendToGroup(\''+g.id+'\')" style="border:0;background:transparent;padding:8px;">📨 သူငယ်ချင်းဖိတ်ရန်</button>';
-            html += '<button class="menu-item" onclick="chooseAdminMember(\''+g.id+'\')" style="border:0;background:transparent;padding:8px;">🛡️ ရာထူးပြောင်းရန်</button>';
-            html += '<button class="menu-item danger" onclick="deleteGroup(\''+g.id+'\')" style="border:0;background:transparent;padding:8px;color:#dc3545;">🗑️ အသင်းဖျက်မည်</button>';
-        } else if (isMember) {
-            html += '<button class="menu-item" onclick="chooseAdminMember(\''+g.id+'\')" style="border:0;background:transparent;padding:8px;">🛡️ ရာထူးပြောင်းရန်</button>';
-            html += '<button class="menu-item danger" onclick="leaveGroup(\''+g.id+'\')" style="border:0;background:transparent;padding:8px;color:#dc3545;">🚪 အသင်းမှထွက်မည်</button>';
-        }
-        html += '<button class="menu-item" onclick="showGroupSettings()" style="border:0;background:transparent;padding:8px;">✖️ ပိတ်မည်</button></div>';
-
-        if (isManager && g.joinRequests.length) {
-            html += '<hr><h3>📨 အသင်းဝင်ခွင့်တောင်းထားသူများ ('+g.joinRequests.length+')</h3>';
-            g.joinRequests.forEach(function(id) {
-                var u = db.users[id] || {};
-                var av = getUserAvatar(u);
-                html += '<div class="onboard-user-card"><div class="avatar">'+av+'</div><div class="info" onclick="viewUserProfile(\''+id+'\')"><div class="name">'+esc(u.name || id)+'</div><div class="id">ID: '+esc(id)+'</div></div><div class="actions"><button class="btn green small" onclick="approveJoinGroup(\''+g.id+'\',\''+id+'\')">✅ လက်ခံ</button><button class="btn red small" onclick="rejectJoinGroup(\''+g.id+'\',\''+id+'\')">❌ ငြင်း</button></div></div>';
-            });
-        }
-
-        html += '<hr><h3>👥 အသင်းဝင်များ</h3>';
-        if (members.length) {
-            members.forEach(function(u) {
-                var rank = getMemberRank(g, u.id);
-                var isOwnerUser = u.id === g.owner;
-                var isAdminUser = isGroupAdmin(g, u.id);
-                var badgeHtml = isOwnerUser ? '<span class="badge-owner">ပါမောခ</span>' : (isAdminUser ? '<span class="member-badge rank-4">အုပ်ချုပ်သူ</span>' : '<span class="member-badge '+getRankBadgeClass(rank)+'">'+getRankLabel(rank)+'</span>');
-                html += '<div class="group-member-item" style="cursor:pointer" onclick="viewUserProfile(\''+u.id+'\')">' +
-                    '<span class="member-rank">#' + rank + '</span>' +
-                    '<span class="member-name">' + esc(u.name) + '</span>' + badgeHtml +
-                    (isMember && u.id !== me ? ' <button class="btn small gold" onclick="event.stopPropagation();transferGroup(\''+g.id+'\',\''+u.id+'\')">လွှဲမည်</button>' : '') +
-                    '</div>';
-            });
-        } else html += '<div class="small">Member မရှိသေးပါ</div>';
-
-        html += '<hr><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;">' + (isMember ? '<button class="btn" onclick="openGroupChat(\''+g.id+'\')">💬 Chat</button>' : '') + '</div>';
-        box.innerHTML = html;
-    }
-
-    function showGroupSettings() {
-        var menu = document.getElementById('groupSettingsMenu');
-        if (menu) {
-            menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
-        }
     }
 
     function openGroupChat(groupId) {
@@ -3633,7 +3512,7 @@
             '</div>' +
             '<div id="groupChatMenu" class="chat-menu-modern" style="display:none;right:10px;top:58px;">' +
             '<button class="menu-item" data-report-group="'+g.id+'" onclick="openContextReport(\'group\', this.dataset.reportGroup); toggleGroupChatMenu();">🚩 Report</button>' +
-            (g.owner === me ? '<button class="menu-item" onclick="inviteFriendToGroup(\''+g.id+'\');toggleGroupChatMenu()">📨 သူငယ်ချင်းဖိတ်ရန်</button><button class="menu-item" onclick="chooseAdminMember(\''+g.id+'\');toggleGroupChatMenu()">🛡️ ရာထူးပြောင်းရန်</button><button class="menu-item danger" onclick="deleteGroup(\''+g.id+'\')">🗑️ အသင်းဖျက်မည်</button>' : '<button class="menu-item" onclick="chooseAdminMember(\''+g.id+'\');toggleGroupChatMenu()">🛡️ ရာထူးပြောင်းရန်</button><button class="menu-item danger" onclick="leaveGroup(\''+g.id+'\')">🚪 အသင်းမှထွက်မည်</button>') +
+            (g.owner === me ? '<button class="menu-item" onclick="inviteFriendToGroup(\''+g.id+'\');toggleGroupChatMenu()">📨 သူငယ်ချင်းဖိတ်ရန်</button><button class="menu-item" onclick="chooseAdminMember(\''+g.id+'\');toggleGroupChatMenu()">🛡️ အုပ်ချုပ်သူခန့်/ဖြုတ်</button><button class="menu-item danger" onclick="deleteGroup(\''+g.id+'\')">🗑️ အသင်းဖျက်မည်</button>' : '<button class="menu-item danger" onclick="leaveGroup(\''+g.id+'\')">🚪 အသင်းမှထွက်မည်</button>') +
             '</div>' +
             '<div id="groupChatBox" class="group-chat-messages">';
         msgs.forEach(function(m, idx) {
@@ -3696,270 +3575,6 @@
         refresh();
     }
 
-    // ===== ADMIN PANEL FUNCTIONS (ပြင်ဆင်ရန် ၅ နှင့် ၆) =====
-    function adminUpdateUser() {
-        var id = document.getElementById('adminUserId').value.trim();
-        var result = document.getElementById('adminUserResult');
-        if (!id) { result.style.display = 'block'; result.textContent = '⚠️ User ID ထည့်ပါ'; return; }
-        var u = db.users[id];
-        if (!u) { result.style.display = 'block'; result.textContent = '❌ User မတွေ့ပါ'; return; }
-        
-        // Show edit dialog
-        var newName = prompt('အမည်အသစ် (လက်ရှိ: ' + u.name + ')', u.name);
-        if (newName !== null && newName.trim()) {
-            if (db.usedNames && db.usedNames.includes(newName.trim()) && u.name !== newName.trim()) {
-                alert('ဒီအမည်ကို အခြားသူသုံးထားပါသည်။');
-                return;
-            }
-            var oldName = u.name;
-            if (db.usedNames) {
-                var idx = db.usedNames.indexOf(oldName);
-                if (idx !== -1) db.usedNames.splice(idx, 1);
-                db.usedNames.push(newName.trim());
-            }
-            u.name = newName.trim();
-        }
-        
-        var newBio = prompt('Bio (လက်ရှိ: ' + (u.bio || '') + ')', u.bio || '');
-        if (newBio !== null) u.bio = newBio;
-        
-        var newGender = prompt('Gender (Male/Female/Other) (လက်ရှိ: ' + (u.gender || '') + ')', u.gender || '');
-        if (newGender !== null) u.gender = newGender;
-        
-        var newDob = prompt('မွေးနေ့ (YYYY-MM-DD) (လက်ရှိ: ' + (u.dob || '') + ')', u.dob || '');
-        if (newDob !== null && /^\d{4}-\d{2}-\d{2}$/.test(newDob)) u.dob = newDob;
-        
-        var newRegion = prompt('Region (လက်ရှိ: ' + (u.region || '') + ')', u.region || '');
-        if (newRegion !== null) u.region = newRegion;
-        
-        var newSticker = prompt('Sticker/Emoji (လက်ရှိ: ' + (u.sticker || '😊') + ')', u.sticker || '😊');
-        if (newSticker !== null) u.sticker = newSticker;
-        
-        var newId = prompt('ID အသစ် (လက်ရှိ: ' + u.id + ') - ဒီအတိုင်းထားရန် ဗလာထားပါ', '');
-        if (newId !== null && newId.trim() && newId.trim() !== u.id) {
-            if (db.users[newId.trim()]) {
-                alert('ဒီ ID ကို အခြားသူသုံးထားပါသည်။');
-            } else {
-                var oldId = u.id;
-                db.users[newId.trim()] = u;
-                delete db.users[oldId];
-                u.id = newId.trim();
-                // Update references
-                db.friends = db.friends.map(function(f) {
-                    if (f.a === oldId) f.a = newId.trim();
-                    if (f.b === oldId) f.b = newId.trim();
-                    return f;
-                });
-                db.req = db.req.map(function(r) {
-                    if (r.f === oldId) r.f = newId.trim();
-                    if (r.t === oldId) r.t = newId.trim();
-                    return r;
-                });
-                if (me === oldId) me = newId.trim();
-                if (chatWith === oldId) chatWith = newId.trim();
-                localStorage.setItem('beechat_logged_in', newId.trim());
-            }
-        }
-        
-        save();
-        refresh();
-        result.style.display = 'block';
-        result.textContent = '✅ User ' + u.id + ' ကို ပြင်ဆင်ပြီးပါပြီ';
-        result.style.color = '#28a745';
-    }
-
-    function adminToggleBlock() {
-        var id = document.getElementById('adminUserId').value.trim();
-        var result = document.getElementById('adminUserResult');
-        if (!id) { result.style.display = 'block'; result.textContent = '⚠️ User ID ထည့်ပါ'; return; }
-        var u = db.users[id];
-        if (!u) { result.style.display = 'block'; result.textContent = '❌ User မတွေ့ပါ'; return; }
-        
-        u.isBanned = !u.isBanned;
-        save();
-        refresh();
-        result.style.display = 'block';
-        result.textContent = u.isBanned ? '🚫 ' + id + ' ကို တားမြစ်ထားပါပြီ' : '✅ ' + id + ' ကို ပြန်ဖွင့်ပေးလိုက်ပါပြီ';
-        result.style.color = u.isBanned ? '#dc3545' : '#28a745';
-    }
-
-    function adminDeleteUser() {
-        var id = document.getElementById('adminUserId').value.trim();
-        var result = document.getElementById('adminUserResult');
-        if (!id) { result.style.display = 'block'; result.textContent = '⚠️ User ID ထည့်ပါ'; return; }
-        var u = db.users[id];
-        if (!u) { result.style.display = 'block'; result.textContent = '❌ User မတွေ့ပါ'; return; }
-        if (id === me) { result.style.display = 'block'; result.textContent = '⚠️ ကိုယ့်ကိုယ်ကို မဖျက်နိုင်ပါ'; return; }
-        
-        if (confirm('ဒီအကောင့်ကို အပြီးဖျက်မှာလား?\nID: ' + id + '\nနာမည်: ' + u.name)) {
-            // Remove from friends
-            db.friends = db.friends.filter(function(f) { return f.a !== id && f.b !== id; });
-            // Remove from requests
-            db.req = db.req.filter(function(r) { return r.f !== id && r.t !== id; });
-            // Remove from groups
-            db.groups = db.groups.map(function(g) {
-                g.members = (g.members || []).filter(function(m) { return m !== id; });
-                g.admins = (g.admins || []).filter(function(a) { return a !== id; });
-                g.joinRequests = (g.joinRequests || []).filter(function(j) { return j !== id; });
-                if (g.owner === id) g.owner = g.members[0] || null;
-                return g;
-            }).filter(function(g) { return g.owner !== null; });
-            // Remove user
-            delete db.users[id];
-            // Remove from blocked
-            delete db.blocked[id];
-            // Remove name from usedNames
-            if (db.usedNames) {
-                var idx = db.usedNames.indexOf(u.name);
-                if (idx !== -1) db.usedNames.splice(idx, 1);
-            }
-            save();
-            refresh();
-            result.style.display = 'block';
-            result.textContent = '🗑️ ' + id + ' အကောင့်ကို ဖျက်ပြီးပါပြီ';
-            result.style.color = '#dc3545';
-        }
-    }
-
-    function adminTransferGroup() {
-        var userId = document.getElementById('adminUserId').value.trim();
-        var result = document.getElementById('adminUserResult');
-        if (!userId) { result.style.display = 'block'; result.textContent = '⚠️ User ID ထည့်ပါ'; return; }
-        var u = db.users[userId];
-        if (!u) { result.style.display = 'block'; result.textContent = '❌ User မတွေ့ပါ'; return; }
-        
-        var groupId = prompt('လွှဲပြောင်းမည့် အသင်း ID ထည့်ပါ:');
-        if (!groupId) return;
-        var g = db.groups.find(function(x) { return x.id === groupId.trim(); });
-        if (!g) { result.style.display = 'block'; result.textContent = '❌ အသင်းမတွေ့ပါ'; return; }
-        if (!g.members || !g.members.includes(userId)) {
-            result.style.display = 'block'; result.textContent = '❌ ဒီအသင်းထဲမှာ ဒီ User မပါပါ';
-            return;
-        }
-        if (g.owner === userId) {
-            result.style.display = 'block'; result.textContent = '⚠️ ဒီသူက ပိုင်ရှင်ဖြစ်နေပြီးသားပါ';
-            return;
-        }
-        if (confirm('ဒီသုံးစွဲသူကို အသင်းပိုင်ရှင်လွှဲပြောင်းမှာလား?\nUser: ' + u.name + '\nGroup: ' + g.name)) {
-            var oldOwner = g.owner;
-            g.owner = userId;
-            g.memberRanks[userId] = 5;
-            if (!g.admins) g.admins = [];
-            if (!g.admins.includes(oldOwner) && oldOwner !== userId) {
-                g.admins.push(oldOwner);
-            }
-            addGroupSystemMessage(g, '🔄 Admin က ' + (db.users[oldOwner]?.name || oldOwner) + ' ကို ' + (u.name || userId) + ' ထံ အသင်းပိုင်ရှင်လွှဲပြောင်းပေးလိုက်ပါသည်။');
-            save();
-            refresh();
-            result.style.display = 'block';
-            result.textContent = '✅ အသင်းပိုင်ရှင် လွှဲပြောင်းပြီးပါပြီ';
-            result.style.color = '#28a745';
-        }
-    }
-
-    function adminViewGroup() {
-        var groupId = document.getElementById('adminGroupId').value.trim();
-        var result = document.getElementById('adminGroupResult');
-        if (!groupId) { result.style.display = 'block'; result.textContent = '⚠️ အသင်း ID ထည့်ပါ'; return; }
-        var g = db.groups.find(function(x) { return x.id === groupId; });
-        if (!g) { result.style.display = 'block'; result.textContent = '❌ အသင်းမတွေ့ပါ'; return; }
-        
-        var isBanned = db.bannedGroups && db.bannedGroups.includes(groupId);
-        var memberNames = (g.members || []).map(function(id) { var u=db.users[id]; return u ? u.name + '(' + id + ')' : id; }).join(', ');
-        var msg = '📋 အသင်းအချက်အလက်\n';
-        msg += 'ID: ' + g.id + '\n';
-        msg += 'အမည်: ' + g.name + '\n';
-        msg += 'ပိုင်ရှင်: ' + (db.users[g.owner]?.name || g.owner) + '\n';
-        msg += 'အဖွဲ့ဝင်: ' + (g.members?.length || 0) + ' ယောက်\n';
-        msg += 'အဖွဲ့ဝင်များ: ' + (memberNames || 'မရှိပါ') + '\n';
-        msg += 'အုပ်ချုပ်သူများ: ' + ((g.admins || []).map(function(id) { var u=db.users[id]; return u ? u.name + '(' + id + ')' : id; }).join(', ') || 'မရှိပါ') + '\n';
-        msg += 'အခြေအနေ: ' + (isBanned ? '🚫 တားမြစ်ထား' : '✅ ပုံမှန်') + '\n';
-        alert(msg);
-    }
-
-    function adminDeleteGroup() {
-        var groupId = document.getElementById('adminGroupId').value.trim();
-        var result = document.getElementById('adminGroupResult');
-        if (!groupId) { result.style.display = 'block'; result.textContent = '⚠️ အသင်း ID ထည့်ပါ'; return; }
-        var g = db.groups.find(function(x) { return x.id === groupId; });
-        if (!g) { result.style.display = 'block'; result.textContent = '❌ အသင်းမတွေ့ပါ'; return; }
-        
-        if (confirm('ဒီအသင်းကို အပြီးဖျက်မှာလား?\nID: ' + g.id + '\nအမည်: ' + g.name)) {
-            db.groups = db.groups.filter(function(x) { return x.id !== groupId; });
-            delete db.groupMessages[groupId];
-            if (db.bannedGroups) {
-                db.bannedGroups = db.bannedGroups.filter(function(id) { return id !== groupId; });
-            }
-            save();
-            refresh();
-            result.style.display = 'block';
-            result.textContent = '🗑️ အသင်း ' + g.name + ' (' + g.id + ') ကို ဖျက်ပြီးပါပြီ';
-            result.style.color = '#dc3545';
-            renderAllGroups();
-            renderMyGroups();
-        }
-    }
-
-    function adminUnbanGroup() {
-        var groupId = document.getElementById('adminGroupId').value.trim();
-        var result = document.getElementById('adminGroupResult');
-        if (!groupId) { result.style.display = 'block'; result.textContent = '⚠️ အသင်း ID ထည့်ပါ'; return; }
-        var g = db.groups.find(function(x) { return x.id === groupId; });
-        if (!g) { result.style.display = 'block'; result.textContent = '❌ အသင်းမတွေ့ပါ'; return; }
-        
-        if (!db.bannedGroups) db.bannedGroups = [];
-        if (db.bannedGroups.includes(groupId)) {
-            db.bannedGroups = db.bannedGroups.filter(function(id) { return id !== groupId; });
-            save();
-            refresh();
-            result.style.display = 'block';
-            result.textContent = '✅ အသင်း ' + g.name + ' (' + g.id + ') ၏ တားမြစ်ချက်ကို ပယ်ဖျက်လိုက်ပါပြီ';
-            result.style.color = '#28a745';
-        } else {
-            db.bannedGroups.push(groupId);
-            save();
-            refresh();
-            result.style.display = 'block';
-            result.textContent = '🚫 အသင်း ' + g.name + ' (' + g.id + ') ကို တားမြစ်လိုက်ပါပြီ';
-            result.style.color = '#dc3545';
-        }
-        renderAllGroups();
-        renderMyGroups();
-    }
-
-    function adminListUsers() {
-        var ids = Object.keys(db.users || {});
-        if (!ids.length) { alert('သုံးစွဲသူမရှိပါ'); return; }
-        var msg = '📋 သုံးစွဲသူစာရင်း (' + ids.length + ' ယောက်)\n\n';
-        ids.forEach(function(id) {
-            var u = db.users[id];
-            if (u) {
-                msg += (u.isBanned ? '🚫 ' : '✅ ') + u.name + ' (' + id + ')\n';
-            }
-        });
-        alert(msg);
-    }
-
-    function adminListGroups() {
-        var groups = db.groups || [];
-        if (!groups.length) { alert('အသင်းမရှိပါ'); return; }
-        var msg = '📋 အသင်းစာရင်း (' + groups.length + ' ခု)\n\n';
-        groups.forEach(function(g) {
-            var isBanned = db.bannedGroups && db.bannedGroups.includes(g.id);
-            msg += (isBanned ? '🚫 ' : '✅ ') + g.name + ' (' + g.id + ') - Members: ' + (g.members?.length || 0) + '\n';
-        });
-        alert(msg);
-    }
-
-    function adminSetSystemMsg() {
-        var msg = document.getElementById('adminSystemMsg').value.trim();
-        if (!msg) { alert('System Message ထည့်ပါ'); return; }
-        updateSystemMessage(msg, Date.now());
-        save();
-        alert('✅ System Message သတ်မှတ်ပြီးပါပြီ');
-        document.getElementById('adminSystemMsg').value = '';
-    }
-
     function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
 
     document.addEventListener('click', function(e) {
@@ -4000,4 +3615,4 @@
     </div>
 </div>
 </body>
-                </html>
+    </html>
